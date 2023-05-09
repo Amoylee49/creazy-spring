@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shorturl.mapper.ShortUrlMapper">
+
+    <sql id="Base_Common_list">
+        id,hash_value, url, created, updated,deleted
+    </sql>
+    <resultMap id="baseResultMap" type="com.shorturl.vo.ShortUrlEntity">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="hash_value" jdbcType="VARCHAR" property="hashValue"></result>
+        <result column="url" jdbcType="VARCHAR" property="url"></result>
+        <result column="created" jdbcType="TIMESTAMP" property="created"></result>
+        <result column="updated" jdbcType="TIMESTAMP" property="updated"></result>
+        <result column="deleted" jdbcType="TINYINT" property="deleted"></result>
+
+    </resultMap>
+
+
+    <select id="findByHashValue" resultMap="baseResultMap">
+        select
+        <include refid="Base_Common_list"/>
+        from tb_short_url
+        where hash_value=#{hashValue,jdbcType=VARCHAR}
+        and deleted = 0;
+    </select>
+
+    <select id="findAllFromDB" resultType="java.lang.String">
+        select hava_Value form tb_short_url where delete = 0;
+    </select>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shorturl.mapper.OrderMapper">
+
+ <!--   <resultMap id="xxxxxxxx" type="com.github.yulichang.join.dto.UserDTO">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+
+        <collection property="addressList" javaType="java.util.List"
+                    ofType="com.github.yulichang.join.entity.UserAddressDO">
+            <id property="id" column="mpj_id"/>
+            <result property="address" column="address"/>
+            <result property="userId" column="user_id"/>
+        </collection>
+    </resultMap>-->
+    
+    <resultMap id="orderRRR" type="com.shorturl.vo.Order">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"/>
+        <association property="customer" javaType="com.shorturl.vo.Customer">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+
+    
+    <select id="findOrder" resultMap="orderRRR">
+        SELECT
+        o.`id`, o.`name`, c.`name`
+        FROM
+        `order` o
+        LEFT JOIN customer c ON o.`customer_id`=c.`id`
+        WHERE o.id =#{id}
+    </select>
+</mapper>

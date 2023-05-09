@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shorturl.mapper.CustomerMapper">
+
+    <resultMap id="customerResult" type="com.shorturl.vo.Customer">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <collection property="orderList" ofType="com.shorturl.vo.Order">
+            <id property="id" column="o_id"/>
+            <result property="name" column="o_name"/>
+        </collection>
+    </resultMap>
+
+    <select id="findCustomer" resultMap="customerResult">
+        SELECT
+        c.id, c.name,o.id o_id,o.`name` o_name
+        FROM
+        customer c
+        LEFT JOIN `order` o ON c.id=o.`customer_id`
+        WHERE c.id =#{id}
+    </select>
+</mapper>

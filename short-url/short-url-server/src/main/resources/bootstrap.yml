@@ -1,0 +1,53 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: short-url-service
+  cloud:
+#    bootstrap:
+#      enable: true
+    nacos:
+      discovery:
+        server-addr: localhost:8848 # 注册中心
+      config:
+        server-addr: localhost:8848 # 配置中心中心
+#        username: nacos
+#        password: nacos
+        fileExtension: yaml #指定yaml格式
+#        namespace: 486df4ed-39d6-453f-9c7d-b8f37a78b7ff
+        shared-configs[0]:
+          data-id: short-url-service
+          # 默认为DEFAULT_GROUP
+          group: DEFAULT_GROUP
+          # 是否动态刷新，默认为false
+          refresh: true
+    sentinel:
+      eager: true #立即加载
+      transport:
+        dashboard: localhost:8858 #配置Sentinal dashboard地址
+        port: 8719
+      datasource:
+        ds1: #命名随意
+          nacos:
+            server-addr: 127.0.0.1:8848
+            dataId: ${spring.application.name}-sentinel
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow #配置表示该数据源中的规则属于哪种类型的规则
+#            (flow流控，degrade熔断降级，authority，system系统保护, param-flow热点参数限流, gw-flow, gw-api-group)
+        #            namespace: 486df4ed-39d6-453f-9c7d-b8f37a78b7ff
+
+#        ds2:
+#          file:
+#            file: classpath:Sentinel.json json格式有问题，不能注释号
+#            data-type: json
+#            rule-type: flow
+
+  # short-url-server-dev.yaml
+  #DataId=${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+management:
+  endpoints:
+    web:
+      exposure:
+       include: "*"

@@ -1,0 +1,60 @@
+#spring:
+#  profiles:
+#    actives: true
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: short-url-server
+  datasource:
+    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2b8
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+
+mybatis-plus:
+  mapper-locations: mappers/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  #  redis:
+  #    database: 3
+  #    host: localhost
+  #    jedis:
+  #      pool:
+  #        max-idle: 100
+  #        max-wait: -1ms
+  #        min-idle: 2
+  #    password: 123456
+  #    port: 6379
+  #    timeout: 2000ms
+  #    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=true&verifyServerCertificate=false&serverTimezone=GMT%2b8
+  #  cloud:
+  #    nacos:
+  #      discovery:
+  #        serverAddr: localhost:8848 # 注册中心
+  #      config:
+  #        serverAddr: localhost:8848 # 配置中心中心
+  ##        fileExtension: yaml #指定yaml格式
+  #        group: default_group
+  #        namespace: 0606dc29-b43e-4b0a-a973-548150877d70
+  #        ext-config:
+  #          - data-id: crazymaker-db-dev.yml
+  #            group: DEFAULT_GROUP
+  #            refresh: true
+  #    sentinel:
+  #      transport:
+  #        dashboard: localhost:8858 #配置Sentinal dashboard地址
+  #        port: 8719
+  #      datasource:
+  #        ds1:
+  #          nacos:
+  #            server-addr: localhost:8848
+  #            dataId: cloudalibaba-sentinel-service
+  #            groupId: DEFAULT_GROUP
+  #            data-type: json
+  #            rule-type: flow
+  #            namespace: 0606dc29-b43e-4b0a-a973-548150877d70
+  #DataId=${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}

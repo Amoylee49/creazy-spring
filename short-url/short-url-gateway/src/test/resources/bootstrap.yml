@@ -1,0 +1,16 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: short-url-gatewayyyy
+  cloud:
+    nacos:
+      discovery:
+        serverAddr: localhost:8848 #服务注册中心地址
+      config:
+        serverAddr: localhost:8848 #配置中心地址
+        fileExtension: yaml
+        group: default_group
+        namespace: 0606dc29-b43e-4b0a-a973-548150877d70
+#DataId=${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
