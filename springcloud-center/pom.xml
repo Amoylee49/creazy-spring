@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.example</groupId>
-        <artifactId>creazy-spring</artifactId>
+        <groupId>org.crazy.spring</groupId>
+        <artifactId>crazy-spring</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -30,6 +30,8 @@
         <module>cloud-eureka</module>
         <!--网关-->
         <module>cloud-zuul</module>
+        <module>cloud-gateway-web</module>
+        <module>cloud-gateway-admin</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -56,6 +58,28 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <dependencies>
+        <!--SpringBoot2.4.x之后默认不加载bootstrap.yml文件，需要在pom里加上依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <!--            不使用Ribbon 进行客户端负载均衡-->
+            <!--            <exclusions>-->
+            <!--                <exclusion>-->
+            <!--                    <groupId>org.springframework.cloud</groupId>-->
+            <!--                    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>-->
+            <!--                </exclusion>-->
+            <!--            </exclusions>-->
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+    </dependencies>
     <build>
         <pluginManagement>
             <plugins>

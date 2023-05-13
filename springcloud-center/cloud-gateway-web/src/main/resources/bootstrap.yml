@@ -1,0 +1,31 @@
+server:
+    port: ${SERVER_PORT:8853}
+#  port: 0
+spring:
+  application:
+    name: gateway-web
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${REGISTER_HOST:127.0.0.1}:${REGISTER_PORT:8848}
+      #        server-addr: localhost:8848 # 注册中心
+      #        namespace: 55a1fe9b-04aa-4f7d-b219-9d37e98e6acf
+      config:
+        server-addr: ${REGISTER_HOST:localhost}:${REGISTER_PORT:8848}
+        fileExtension: yaml #指定yaml格式
+        shared-configs[0]:
+          data-id: gateway-web
+          # 默认为DEFAULT_GROUP
+          group: DEFAULT_GROUP
+          # 是否动态刷新，默认为false
+          refresh: true
+#    sentinel:
+#      eager: true #立即加载
+#      transport:
+#        dashboard: ${SENTINEL_DASHBOARD_HOST:localhost}:${SENTINEL_DASHBOARD_PORT:8858}
+
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/test
+    username: root
+    password: root

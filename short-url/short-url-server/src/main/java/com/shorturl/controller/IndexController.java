@@ -24,8 +24,8 @@ public class IndexController {
     @Autowired
     private RedisUtils redisUtils;
 
-    //    @Value("${domain}")
-    private final String DOMAIN = "localhost:8080/";
+//    @Value("${domain:localhost}")
+//    private final String DOMAIN = "localhost:8080/";
 
     @Value("${url.protocol:https}")
     private String https;
@@ -39,7 +39,8 @@ public class IndexController {
             log.error("无效的url:[{}]", request.getUrl());
             throw new ApiException("无效的url");
         }
-        return CommonResult.success(DOMAIN + shortUrlManager.generateShortUrl(request.getUrl()).getHashValue());
+//        return CommonResult.success(DOMAIN + shortUrlManager.generateShortUrl(request.getUrl()).getHashValue());
+        return CommonResult.success(shortUrlManager.generateShortUrl(request.getUrl()).getHashValue());
     }
 
     @PostMapping(value = "/check", consumes = MediaType.APPLICATION_JSON_VALUE)
